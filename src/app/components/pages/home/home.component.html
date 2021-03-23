@@ -1,0 +1,17 @@
+<main>
+  <div class="bg">
+    <div class="title">
+      <h1>Welcome!, your favorites</h1>
+    </div>
+    <span class="arrow bounce"></span>
+  </div>
+
+  <section class="container character__list">
+    <app-characters-card *ngFor="let characterFav of charactersFav$|async "
+                         [character]="characterFav"></app-characters-card>
+  </section>
+
+  <section class="container">
+    <!--    <rm-characters [data]="charactersList"></rm-characters>-->
+  </section>
+</main>

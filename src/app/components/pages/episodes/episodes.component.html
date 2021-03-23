@@ -1,0 +1,20 @@
+<main>
+  <div class="bg">
+    <div class="title">
+      <h1 >EPISODES</h1>
+    </div>
+    <span class="arrow bounce"></span>
+  </div>
+
+  <section class="container">
+    <ul class="episodes__list">
+      <li *ngFor="let episode of episodes$ | async ">
+        {{ episode.episode}}- {{episode.name}}
+      </li>
+    </ul>
+  </section>
+
+  <section class="container">
+    <!--    <rm-characters [data]="charactersList"></rm-characters>-->
+  </section>
+</main>
