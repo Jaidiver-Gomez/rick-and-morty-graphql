@@ -1,0 +1,68 @@
+main {
+  .bg {
+    background: url('~src/assets/images/bg4.jpg') no-repeat fixed 50% 0;
+  }
+
+  .container {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 500px) {
+    .container {
+      width: 90%;
+    }
+  }
+}
+
+ul.episodes__list {
+  counter-reset: gradient-counter;
+  list-style: none;
+  margin: 1.75rem 0;
+  padding-left: 1rem;
+
+  > li {
+    background: #fff;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+    counter-increment: gradient-counter;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+
+    &::before,
+    &::after {
+      background: linear-gradient(135deg, #8C43E6 0%, #5E2C99 100%);
+      border-radius: 1rem 1rem 0 1rem;
+      content: '';
+      height: 3rem;
+      left: -1rem;
+      overflow: hidden;
+      position: absolute;
+      top: -1rem;
+      width: 3rem;
+    }
+
+    &::before {
+      box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+      content: counter(gradient-counter);
+      color: #fff;
+      display: flex;
+      font: 900 1.8em/1 'RocknRoll One';
+      justify-content: flex-end;
+      padding: 0.125em 0.25em;
+      z-index: 1;
+      align-items: flex-end;
+      flex-direction: column;
+    }
+
+    &:hover {
+      box-shadow: 0.278rem 0.278rem 0.056rem rgba(250, 246, 246, 0.5);
+      -webkit-box-shadow: 0.278rem 0.278rem 1.111rem rgba(250, 246, 246, 0.5);
+      -moz-box-shadow: 0.278rem 0.278rem 1.111rem rgba(250, 246, 246, 0.5);
+    }
+
+    + li {
+      margin-top: 2rem;
+    }
+  }
+}
