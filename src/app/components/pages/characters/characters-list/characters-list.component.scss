@@ -3,4 +3,28 @@ main {
     background: url('~src/assets/images/bg6.jpg') no-repeat fixed 50% 0;
     background-size: cover;
   }
+
+  .button{
+    position: fixed;
+    bottom: 1.111rem;
+    right:1.667rem;
+    z-index: 3;
+    padding: 1rem;
+    background-color: #1f1e1e;
+    border: 0.056rem solid #1f1e1e;
+    cursor: pointer;
+    font-size: 1.5rem;
+    width:2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+
+    &:hover{
+      background-color: #8c43e6;
+      border: 0.056rem solid white;
+      font-size:2rem;
+    }
+  }
 }

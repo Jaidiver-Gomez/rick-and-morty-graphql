@@ -11,6 +11,7 @@
 html {
   font-family: 'RocknRoll One', sans-serif;
   background-color: #5E2C99;
+  scroll-behavior: smooth;
 }
 
 ul {
@@ -89,7 +90,7 @@ main{
 .title {
   color: #fff;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 3vw;
 }
 
 .text-white {
