@@ -1,0 +1,19 @@
+
+main {
+  .bg {
+    background: url('~src/assets/images/bg1.png') no-repeat fixed 50% 0;
+    background-size: cover;
+    position: relative;
+
+    .character_details {
+      padding: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: max-content;
+      zoom: 1.5;
+    }
+  }
+}

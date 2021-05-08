@@ -1,12 +1,13 @@
 <article class="card" *ngIf="character">
-  <a [routerLink]="['/character-details', character.id]" class="card_link">
+  <a [routerLink]="['/characters-details', character.id]" class="card_link">
     <figure>
       <img rel="preload" is="image" width="300" height="300" [src]="character.image" [alt]="character.name">
     </figure>
   </a>
   <div class="card__details">
     <figure class="card__favorite">
-      <img rel="preload" is="image" width="50" height="50" src="/assets/svg/{{getIcon()}}" alt="favorite" (click)="toggleFavorite()">
+      <img rel="preload" is="image" width="50" height="50" src="/assets/svg/{{getIcon()}}" alt="favorite"
+           (click)="toggleFavorite()">
     </figure>
     <h3>{{character.name}}</h3>
     <ul class="card_list">
