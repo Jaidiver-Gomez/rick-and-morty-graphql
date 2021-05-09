@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import {DataService} from '@shared/services/data.service';
 import {debounceTime, distinctUntilChanged, filter, map, takeUntil, tap} from 'rxjs/operators';
-import {Character} from "@shared/models/data.interface";
+import {Character} from '@shared/models/data.interface';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +19,7 @@ import {Character} from "@shared/models/data.interface";
       </div>
       <ng-container *ngIf="!(characters| async)?.length">
         <h1 class="title">Search return no results</h1>
-        <img src="assets/images/search_no_results.jpg" alt="404" width="300"/>
+        <img src="assets/images/search_no_results.jpg" alt="404" [style.width]="'30vw'"/>
       </ng-container>
     </section>
   `,
@@ -43,17 +43,17 @@ export class SearchComponent implements OnDestroy {
       this.characters
         .pipe(takeUntil(this.destroy$))
         .subscribe(characters => {
-        if (characters?.length) {
-          return;
-        }
-        this.search.valueChanges.pipe(
-          map(search => search?.toLowerCase().trim()),
-          debounceTime(300),
-          filter(search => search === ''),
-          tap(()=> this.onClear()),
-          takeUntil(this.destroy$)
-        ).subscribe();
-      });
+          if (characters?.length) {
+            return;
+          }
+          this.search.valueChanges.pipe(
+            map(search => search?.toLowerCase().trim()),
+            debounceTime(300),
+            filter(search => search === ''),
+            tap(() => this.onClear()),
+            takeUntil(this.destroy$)
+          ).subscribe();
+        });
     }
   }
 

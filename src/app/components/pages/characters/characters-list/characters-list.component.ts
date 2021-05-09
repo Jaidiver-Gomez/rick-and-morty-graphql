@@ -36,7 +36,7 @@ export class CharactersListComponent {
     if (arrowDownPress) {
       this.document.documentElement.scrollTop = this.document.documentElement.scrollTop + 600;
     }
+    //TODO: Hacer paginado con el filtro
     this.dataSvc.getCharactersByPages(this.pageNum++);
-    console.log('ok');
   }
 }
