@@ -72,7 +72,7 @@ export class SearchComponent implements OnDestroy {
       map(search => search?.toLowerCase().trim()),
       debounceTime(300),
       distinctUntilChanged(),
-      filter(search => search !== '' && search?.length > 3),
+      filter(search => search !== '' && search?.length > 2),
       tap(search => this.dataSvc.filterData(search)),
       takeUntil(this.destroy$)
     ).subscribe();
