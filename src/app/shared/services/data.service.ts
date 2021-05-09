@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo, gql} from 'apollo-angular';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {find, mergeMap, pluck, take, tap, withLatestFrom} from 'rxjs/operators';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {catchError, find, mergeMap, pluck, take, tap, withLatestFrom} from 'rxjs/operators';
 import {Character, DataResponse, Episode} from '@shared/models/data.interface';
 import {LocalStorageService} from '@shared/services/local-storage.service';
 
@@ -48,19 +48,19 @@ export class DataService {
     this.getDataApi();
   }
 
-  getDetails(id: number) {
-    return this.characters$.pipe(
-      mergeMap((characters: Character[]) => characters),
-      find((character: Character) => character?.id === id)
-    );
-  }
-
   get episodes(): Observable<Episode[]> {
     return this.episode$;
   }
 
   get characters(): Observable<Character[]> {
     return this.characters$;
+  }
+
+  getDetails(id: number) {
+    return this.characters$.pipe(
+      mergeMap((characters: Character[]) => characters),
+      find((character: Character) => character?.id === id)
+    );
   }
 
   getCharactersByPages(pageNumber: number): void {
@@ -90,25 +90,66 @@ export class DataService {
       pluck('data', 'characters'),
       withLatestFrom(this.characters$),
       tap(([apiResponse, characters]) => {
-        this.parseCharacterData([...characters, ...apiResponse.results]);
+        this.parseCharactersData([...characters, ...apiResponse.results]);
       })
     ).subscribe();
   }
 
-  private getDataApi() {
+  filterData(valueToSearch: string): void {
+    const QUERY_BY_NAME = gql`
+      query ($name:String) {
+        characters(filter: {name: $name}){
+          info{
+            count
+          }
+          results {
+            id
+            name
+            status
+            species
+            gender
+            image
+          }
+        }
+      }
+    `;
+
+    this.apolloSvc.watchQuery<any>(
+      {
+        query: QUERY_BY_NAME,
+        variables: {
+          name: valueToSearch
+        }
+      })
+      .valueChanges
+      .pipe(
+        take(1),
+        pluck('data', 'characters'),
+        tap((apiResponse) => this.parseCharactersData([...apiResponse.results])),
+        catchError(error => {
+          console.warn(error.message);
+          this.charactersSubject.next([]);
+          return of(error);
+        })
+      )
+      .subscribe();
+
+  }
+
+  getDataApi() {
     this.apolloSvc.watchQuery<DataResponse>({
       query
     }).valueChanges.pipe(
       take(1),
       tap(({data}) => {
         const {characters, episodes} = data;
-        this.parseCharacterData(characters.results);
+        this.parseCharactersData(characters.results);
         this.episodeSubject.next(episodes.results);
       })
     ).subscribe();
   }
 
-  private parseCharacterData(characters: Character[]): void {
+  private parseCharactersData(characters: Character[]): void {
     const currentFavs: Character[] = this.localStorageSvc.getFavoritesCharacters();
     const newData = characters.map(character => {
       const found = !!currentFavs?.find((characterFav: Character) => characterFav.id === character.id);

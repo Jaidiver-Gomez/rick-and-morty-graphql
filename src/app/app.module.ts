@@ -11,21 +11,23 @@ import {ToastrModule} from 'ngx-toastr';
 
 import {SpinnerModule} from '@shared/components/spinner/spinner.module';
 import {SpinnerInterceptor} from '@shared/interceptors/spinner.interceptor';
+import {SearchModule} from "@shared/components/search/search.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GraphQLModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    SpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        GraphQLModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        SpinnerModule,
+        SearchModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

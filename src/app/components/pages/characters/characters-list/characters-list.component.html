@@ -1,17 +1,12 @@
 <main>
   <div class="bg">
     <div class="title">
-      <h1 >CHARACTERS </h1>
+      <h1>CHARACTERS </h1>
     </div>
     <span class="arrow bounce" (click)="onScrollDown(true)"></span>
   </div>
-
   <section class="container" infinite-scroll (scrolled)="onScrollDown()">
     <app-characters-card *ngFor="let character of characters$ | async" [character]="character"></app-characters-card>
     <button *ngIf="showButtonScrollingUp" class="button" (click)="onScrollTop()">⏫</button>
-  </section>
-
-  <section class="container">
-    <!--    <rm-characters [data]="charactersList"></rm-characters>-->
   </section>
 </main>
